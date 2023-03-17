@@ -16,14 +16,20 @@ public class FileServcieImpl implements FileService {
 	public String uploadImage(String path, MultipartFile file) throws IOException {
 
 		String name = file.getOriginalFilename();
-		
-		//Random name generating
+
+		/*
+		 * Random name generating
+		 */		
 		String randomID = UUID.randomUUID().toString();
 
+		/*
+		 * name.substring(name.lastIndexOf("."))-> this will return the next part of .
+		 */		
 		String fileName1 = randomID.concat(name.substring(name.lastIndexOf(".")));
-
+	
 		String filePath = path + File.separator + fileName1;
-
+	
+		/* If the folder is not exits then it will create a new folder */
 		File f = new File(path);
 		if (!f.exists()) {
 			f.mkdir();

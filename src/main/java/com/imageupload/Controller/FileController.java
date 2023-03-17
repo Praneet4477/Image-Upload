@@ -21,23 +21,23 @@ public class FileController {
 
 	@Autowired
 	private FileService fileService;
-	
+
 	@Value("${project.image}")
 	private String path;
-	
+
 	@PostMapping("/upload")
-	public ResponseEntity<FileResponse> fileUpload(@RequestParam("image")
-			MultipartFile image){
-	
+	public ResponseEntity<FileResponse> fileUpload(@RequestParam("image") MultipartFile image) {
+
 		String fileName = null;
 		try {
 			fileName = this.fileService.uploadImage(path, image);
 		} catch (IOException e) {
 			e.printStackTrace();
-			return new ResponseEntity<>(new FileResponse(null, "Image is not Uploaded due to some error!!"),HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>(new FileResponse(null, "Image is not Uploaded due to some error!!"),
+					HttpStatus.INTERNAL_SERVER_ERROR);
 
 		}
-		
-		return new ResponseEntity<>(new FileResponse(fileName, "Image Successfully Uploaded"),HttpStatus.OK);
+
+		return new ResponseEntity<>(new FileResponse(fileName, "Image Successfully Uploaded"), HttpStatus.OK);
 	}
 }
